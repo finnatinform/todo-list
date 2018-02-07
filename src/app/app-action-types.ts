@@ -1,0 +1,11 @@
+enum AppActionTypes {
+    AT_ITEM_ADD_REQUESTED ,
+    AT_ITEM_ADD_CANCELED ,
+    AT_ITEM_ADDED ,
+    AT_ITEM_EDIT_REQUESTED ,
+    AT_ITEM_EDIT_CANCELED ,
+    AT_ITEM_EDITED ,
+    AT_ITEM_DELETED
+}
+
+export = AppActionTypes ;
