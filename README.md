@@ -50,6 +50,22 @@ Application.use(Cors());
 ```
 
 ### Löschen von Daten
+Auch beim löschen können wir gut von der Frage ausgehen, welche ActionTypen wir brauchen.
+Darauf basierend können wir nun die Applikation anpassen.
+
+Die Syntax um einen DELETE-Call mit jQuery abzusetzen ist ein wenig komplexer als ein GET-Call.
+Wir benutzen dazu die gemeingültige ajax-Funktion.
+
+```javascript
+$.ajax({
+    url : /* Url */ ,
+    type : 'DELETE',
+    contentType : 'application/json' ,
+    data : JSON.stringify( /* Daten */ )
+})
+    .done( /* Handler */ )
+    .fail( /* Handler */ );
+```
 
 
 ### Editieren von Daten
