@@ -62,10 +62,12 @@ class ActionHandler {
         });
     }    
 
-    public onEditItemRequested( _Item : string ):void{
+    public onEditItemRequested( _OldItem : string , _NewItem : string ):void{
         AppDispatcher.dispatch({
             actionType : AppActionTypes.AT_ITEM_EDIT_REQUESTED,
             data : {
+                oldItem : _OldItem ,
+                newItem : _NewItem
             }
         });        
     }
