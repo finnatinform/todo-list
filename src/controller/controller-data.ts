@@ -10,11 +10,31 @@ class DataControllerClass {
         this.onGetData = this.onGetData.bind(this);
         this.onDeleteData = this.onDeleteData.bind(this);
         this.onLoadFinished = this.onLoadFinished.bind(this);
+        this.onPutData = this.onPutData.bind(this);
 
         this.loadData().then(this.onLoadFinished);
     }
 
     public onPostData(_Request: Express.Request, _Response: Express.Response): void {
+        let HNewItem: string = _Request.body.newItem;
+        let HOldItem : string = _Request.body.oldItem ;
+        let HFound : boolean ;
+
+        // Update Data
+        for (let HIndex: number = 0; HIndex < this.__Items.length; HIndex++) {
+            if (this.__Items[HIndex] == HOldItem) {
+                this.__Items[HIndex] = HNewItem ;
+                HFound = true ;
+            }
+        }
+        if(HFound){
+            this.saveData(this.__Items).then((_Result: boolean) => { _Response.end(JSON.stringify({ 'success': _Result })); });
+        } else {
+            _Response.end(JSON.stringify({ 'success': HFound }));
+        }
+    }
+
+    public onPutData(_Request: Express.Request, _Response: Express.Response): void {
         let HNewItem: string = _Request.body.item;
         let HFound : boolean ;
         // Update Data
@@ -26,8 +46,11 @@ class DataControllerClass {
         }
         if(!HFound){
             this.__Items.push(HNewItem);
+            this.saveData(this.__Items).then((_Result: boolean) => { _Response.end(JSON.stringify({ 'success': _Result })); });
+        } else {
+            // Wenn es schon drauf steht, ist alles in Ordnung
+            _Response.end(JSON.stringify({ 'success': true }));
         }
-        this.saveData(this.__Items).then((_Result: boolean) => { _Response.end(JSON.stringify({ 'success': _Result })); });
     }
 
     public onGetData(_Request: Express.Request, _Response: Express.Response): void {

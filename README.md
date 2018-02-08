@@ -74,3 +74,4 @@ Achtet dabei darauf, dass es schon ein AddRequest gibt!
 Für einen POST-Call verwenden wir ebenfalls die ajax-Routine, übergeben als type den Parameter 'POST'. 
 
 ### Editieren von Daten
+Das Editieren der Daten ergibt sich aus den vorherigen Schritten.

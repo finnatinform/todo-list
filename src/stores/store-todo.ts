@@ -31,7 +31,7 @@ class TodoStoreStatic extends Store<AppAction>{
         this.__LoadingStatus = LoadingState.LS_SAVING;
         $.ajax({
             url: 'http://localhost:8080/todo',
-            type: 'POST',
+            type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify({ item: _Item })
         })
@@ -45,15 +45,6 @@ class TodoStoreStatic extends Store<AppAction>{
         } else {
             AppActionHandler.onItemAddError();
         }
-    }
-
-    private editItem(_OldItem: string, _NewItem: string) {
-        for (var HIndex: number = 0; HIndex < this.__Items.length; HIndex++) {
-            if (this.__Items[HIndex] == _OldItem) {
-                break;
-            }
-        }
-        this.__Items[HIndex] = _NewItem;
     }
 
     private startEditItem(_Item: string): void {
@@ -96,6 +87,28 @@ class TodoStoreStatic extends Store<AppAction>{
         }
     }
 
+    private editItem( _OldItem : string , _NewItem : string ):void{
+        this.__LoadingStatus = LoadingState.LS_SAVING;
+        $.ajax({
+            url: 'http://localhost:8080/todo',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ oldItem: _OldItem , newItem : _NewItem })
+        })
+            .done(this.onEditDataFinished)
+            .fail(AppActionHandler.onItemEditError);
+
+        this.__EditItem = - 1 ;
+    }
+
+    private onEditDataFinished(_Response: string): void {
+        if (JSON.parse(_Response).success) {
+            AppActionHandler.onItemEditSuccess();
+        } else {
+            AppActionHandler.onItemEditError();
+        }
+    }
+
     __onDispatch(_Action: AppAction) {
         var HError: boolean = false;
         switch (_Action.actionType) {
@@ -103,22 +116,28 @@ class TodoStoreStatic extends Store<AppAction>{
                 this.addItem(_Action.data.item);
                 break;
             case AppActionTypes.AT_ITEM_ADD_ERROR:
-                this.__LoadingStatus = LoadingState.LS_ERROR
+                this.__LoadingStatus = LoadingState.LS_ERROR;
                 this.__Items = [];
                 break;
             case AppActionTypes.AT_ITEM_ADD_SUCCESS:
                 this.loadData();
                 break;
-            case AppActionTypes.AT_ITEM_EDIT_REQUESTED:
+            case AppActionTypes.AT_ITEM_EDIT_START:
                 this.startEditItem(_Action.data.item);
                 break;
             case AppActionTypes.AT_ITEM_EDIT_CANCELED:
                 this.endEditItem();
                 break;
-            case AppActionTypes.AT_ITEM_EDITED:
-                this.editItem(_Action.data.itemOld, _Action.data.itemNew);
-                this.endEditItem();
+            case AppActionTypes.AT_ITEM_EDIT_SUCCESS:
+                this.loadData();
                 break;
+            case AppActionTypes.AT_ITEM_EDIT_ERROR:
+                this.__LoadingStatus = LoadingState.LS_ERROR;
+                this.__Items = [];
+                break;
+            case AppActionTypes.AT_ITEM_EDIT_REQUESTED:
+                this.editItem( _Action.data.oldItem , _Action.data.newItem );
+                break; 
             case AppActionTypes.AT_DATA_LOAD_REQUESTED:
                 this.loadData();
                 break;

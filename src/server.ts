@@ -9,7 +9,8 @@ Application.use(Cors());
 
 Application.route('/todo')
     .get(DataController.onGetData) // list
-    .post(DataController.onPostData) // add or edit
+    .put(DataController.onPutData) // add
+    .post(DataController.onPostData) // edit
     .delete(DataController.onDeleteData) ; // delete
 
 let Server = Application.listen(8080, function(){

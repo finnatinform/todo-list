@@ -66,7 +66,6 @@ class ActionHandler {
         AppDispatcher.dispatch({
             actionType : AppActionTypes.AT_ITEM_EDIT_REQUESTED,
             data : {
-                item : _Item
             }
         });        
     }
@@ -78,14 +77,27 @@ class ActionHandler {
         });        
     }
 
-    public onItemEdited( _ItemOld : string , _ItemNew : string ):void{
+    public onItemEditStart( _Item : string ):void{
         AppDispatcher.dispatch({
-            actionType : AppActionTypes.AT_ITEM_EDITED,
+            actionType : AppActionTypes.AT_ITEM_EDIT_START,
             data : {
-                itemOld : _ItemOld ,
-                itemNew : _ItemNew
+                item : _Item
             }
         });        
+    }
+
+    public onItemEditSuccess():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_ITEM_EDIT_SUCCESS,
+            data : {}
+        });    
+    }
+
+    public onItemEditError():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_ITEM_EDIT_ERROR,
+            data : {}
+        });    
     }
 
     public onDataLoadSuccess( _Data : Array<string> ):void {
