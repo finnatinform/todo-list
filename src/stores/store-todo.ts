@@ -62,11 +62,31 @@ class TodoStoreStatic extends Store<AppAction>{
         this.__EditItem = -1;
     }
 
-    private loadData():void{
-        this.__LoadingStatus = LoadingState.LS_LOADING ;
-        $.getJSON( 'http://localhost:8080/todo' )
-            .done( AppActionHandler.onDataLoadSuccess )
-            .fail ( AppActionHandler.onDataLoadFailed );
+    private loadData(): void {
+        this.__LoadingStatus = LoadingState.LS_LOADING;
+        $.getJSON('http://localhost:8080/todo')
+            .done(AppActionHandler.onDataLoadSuccess)
+            .fail(AppActionHandler.onDataLoadFailed);
+    }
+
+    private deleteData(_Item: string): void {
+        this.__LoadingStatus = LoadingState.LS_DELETING;
+        $.ajax({
+            url : 'http://localhost:8080/todo' ,
+            type : 'DELETE',
+            contentType : 'application/json' ,
+            data : JSON.stringify({ item : _Item })
+        })
+            .done(this.onDeleteDataFinished)
+            .fail(AppActionHandler.onItemDeleteError);
+    }
+
+    private onDeleteDataFinished(_Response: string): void {
+        if (JSON.parse(_Response).success) {
+            AppActionHandler.onItemDeleteSuccess();
+        } else {
+            AppActionHandler.onItemDeleteError();
+        }
     }
 
     __onDispatch(_Action: AppAction) {
@@ -74,9 +94,6 @@ class TodoStoreStatic extends Store<AppAction>{
         switch (_Action.actionType) {
             case AppActionTypes.AT_ITEM_ADDED:
                 this.addItem(_Action.data.item);
-                break;
-            case AppActionTypes.AT_ITEM_DELETED:
-                this.deleteItem(_Action.data.item);
                 break;
             case AppActionTypes.AT_ITEM_EDIT_REQUESTED:
                 this.startEditItem(_Action.data.item);
@@ -92,14 +109,23 @@ class TodoStoreStatic extends Store<AppAction>{
                 this.loadData();
                 break;
             case AppActionTypes.AT_DATA_LOAD_SUCCESS:
-            this.__LoadingStatus = LoadingState.LS_SUCCESS ;
-                this.__Items = _Action.data.items ;
+                this.__LoadingStatus = LoadingState.LS_SUCCESS;
+                this.__Items = _Action.data.items;
                 break;
             case AppActionTypes.AT_DATA_LOAD_ERROR:
                 this.__LoadingStatus = LoadingState.LS_ERROR
-                this.__Items = [] ;
+                this.__Items = [];
                 break;
-
+            case AppActionTypes.AT_DATA_DELETE_SUCCESS:
+                this.loadData();
+                break;
+            case AppActionTypes.AT_DATA_DELETE_REQUESTED:
+                this.deleteData(_Action.data.item);
+                break;
+            case AppActionTypes.AT_DATA_DELETE_ERROR:
+                this.__LoadingStatus = LoadingState.LS_ERROR
+                this.__Items = [];
+                break;
             default:
                 HError = true;
         }

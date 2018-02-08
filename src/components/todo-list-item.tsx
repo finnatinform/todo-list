@@ -55,7 +55,7 @@ export class TodoListItem extends React.Component<ITodoListItemProps, ITodoListI
         AppActionHandler.onEditItemRequested(this.props.Text);
     }
     private onDeleteItem(): void {
-        AppActionHandler.onItemDeleted(this.props.Text);
+        AppActionHandler.onItemDeleteRequested(this.props.Text);
     }
     private onSaveItem(): void {
         AppActionHandler.onItemEdited(this.props.Text, this.state.Text);

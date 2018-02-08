@@ -7,7 +7,9 @@ import AppActionHandler = require('./../app/app-action-handler');
 export enum LoadingState{
     LS_SUCCESS ,
     LS_LOADING ,
-    LS_ERROR
+    LS_ERROR ,
+    LS_DELETING ,
+    LS_SAVING
 }
 
 export interface ITodoListContentProps {}
@@ -73,6 +75,10 @@ export class TodoListContent extends React.Component<ITodoListContentProps, ITod
             break ;
             case LoadingState.LS_LOADING:
                 HResult = "Daten werden geladen...";
+            case LoadingState.LS_DELETING:
+                HResult = "Eintrag wird gelöscht." ;
+            case LoadingState.LS_SAVING:
+                HResult = "Eintrag wird gespeichert.";
             break;
         }
 

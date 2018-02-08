@@ -25,14 +25,26 @@ class ActionHandler {
             }
         });
     }
-    public onItemDeleted( _Item : string ):void{
+    public onItemDeleteRequested( _Item : string ):void{
         AppDispatcher.dispatch({
-            actionType : AppActionTypes.AT_ITEM_DELETED,
+            actionType : AppActionTypes.AT_DATA_DELETE_REQUESTED,
             data : {
                 item : _Item
             }
         });
     }
+    public onItemDeleteSuccess():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_DATA_DELETE_SUCCESS,
+            data : {}
+        });
+    }
+    public onItemDeleteError():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_DATA_DELETE_ERROR,
+            data : {}
+        });
+    }    
 
     public onEditItemRequested( _Item : string ):void{
         AppDispatcher.dispatch({

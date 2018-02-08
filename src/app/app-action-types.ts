@@ -5,12 +5,22 @@ enum AppActionTypes {
     AT_ITEM_EDIT_REQUESTED ,
     AT_ITEM_EDIT_CANCELED ,
     AT_ITEM_EDITED ,
-    AT_ITEM_DELETED ,
 
     // Laden von Daten
     AT_DATA_LOAD_REQUESTED ,
     AT_DATA_LOAD_SUCCESS ,
-    AT_DATA_LOAD_ERROR
+    AT_DATA_LOAD_ERROR ,
+
+    // Löschen von Daten
+    AT_DATA_DELETE_REQUESTED ,
+    AT_DATA_DELETE_SUCCESS ,
+    AT_DATA_DELETE_ERROR
+
+    // Hinzufügen von Daten
+
+    // Editieren von Daten
+
+
 }
 
 export = AppActionTypes ;
