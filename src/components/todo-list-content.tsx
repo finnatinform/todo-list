@@ -2,20 +2,30 @@ import * as React from "react";
 import { TodoListItem } from "./todo-list-item";
 import { EventSubscription } from "fbemitter";
 import TodoStore = require('./../stores/store-todo');
+import AppActionHandler = require('./../app/app-action-handler');
+
+export enum LoadingState{
+    LS_SUCCESS ,
+    LS_LOADING ,
+    LS_ERROR
+}
 
 export interface ITodoListContentProps {}
 export interface ITodoListContentState {
     Items : Array<string> ;
     EditItem : number ;
+    LoadingStatus : LoadingState ;
 }
 
 export class TodoListContentState {
     Items : Array<string> ;
     EditItem : number ;
+    LoadingStatus : LoadingState ;
 
     constructor(){
         this.Items = TodoStore.Items ;
         this.EditItem = TodoStore.EditItem;
+        this.LoadingStatus = TodoStore.LoadingStatus ;
     }
 }
 
@@ -31,6 +41,7 @@ export class TodoListContent extends React.Component<ITodoListContentProps, ITod
 
     componentDidMount():void{
         this.__TodoStoreListener = TodoStore.addListener(this.onTodoStoreChange); 
+        AppActionHandler.onDataLoadRequested();
     }
 
     componentWillUnmount():void{
@@ -45,7 +56,6 @@ export class TodoListContent extends React.Component<ITodoListContentProps, ITod
     }
 
     private renderItems():Array<JSX.Element>{
-        console.log('renderItems with edit: '+this.state.EditItem);
         let HResult : Array<JSX.Element> = [] ;
 
         for( let HIndex : number = 0 ; HIndex < this.state.Items.length; HIndex++ ){
@@ -55,10 +65,38 @@ export class TodoListContent extends React.Component<ITodoListContentProps, ITod
         return HResult ;
     }
 
+    private get StatusText():string{
+        let HResult : string = "";
+        switch( this.state.LoadingStatus ){
+            case LoadingState.LS_ERROR:
+                HResult = "Es ist ein Fehler aufgetreten.";
+            break ;
+            case LoadingState.LS_LOADING:
+                HResult = "Daten werden geladen...";
+            break;
+        }
+
+        return HResult ;
+    }
+    private renderStatus():JSX.Element{
+        return(
+            <div className="todo-list-status" >
+                {this.StatusText}
+            </div>
+        );
+    }
+
+    private renderContent():Array<JSX.Element>{
+        if(this.state.LoadingStatus>0){
+            return [ this.renderStatus() ] ;
+        } else {
+            return this.renderItems();
+        }
+    }
     render() {
         return(
             <div className="todo-list-content">
-                {this.renderItems()}
+                {this.renderContent()}
             </div>
         );
     }

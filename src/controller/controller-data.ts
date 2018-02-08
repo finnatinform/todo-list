@@ -16,13 +16,16 @@ class DataControllerClass {
 
     public onPostData(_Request: Express.Request, _Response: Express.Response): void {
         let HNewItem: string = _Request.body.item;
+        let HFound : boolean ;
         // Update Data
         for (let HIndex: number = 0; HIndex < this.__Items.length; HIndex++) {
             if (this.__Items[HIndex] == HNewItem) {
-
-            } else if (HIndex == (this.__Items.length - 1)) {
-                this.__Items.push(HNewItem);
+                this.__Items[HIndex] = HNewItem ;
+                HFound = true ;
             }
+        }
+        if(!HFound){
+            this.__Items.push(HNewItem);
         }
         this.saveData(this.__Items).then((_Result: boolean) => { _Response.end(JSON.stringify({ 'success': _Result })); });
     }

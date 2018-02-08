@@ -1,9 +1,11 @@
 import Express = require('express');
 import BodyParser = require('body-parser');
 import DataController = require('./controller/controller-data');
+import Cors = require('cors');
 
 let Application = Express();
 Application.use(BodyParser.json());
+Application.use(Cors());
 
 Application.route('/todo')
     .get(DataController.onGetData) // list

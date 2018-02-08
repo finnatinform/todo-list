@@ -14,3 +14,16 @@ Folgende Funktionalitäten sollen funktionieren:
 - Einträge hinzufügen
 - Einträge löschen
 - Einträge auflisten
+
+## Anpassen des Clients
+Beim Anpassen des Clients kann man sich sehr gut an den notwendigen ActionTypen orientieren.
+Welche/Wieviele brauchen wir für eine Serverkommunikation?
+
+Als Vorbereitung installieren wir uns außerdem jQuery.
+```
+npm install --save jquery @types/jquery
+```
+### Laden von Daten
+
+### Löschen von Daten
+### Editieren von Daten

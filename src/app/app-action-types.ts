@@ -5,7 +5,12 @@ enum AppActionTypes {
     AT_ITEM_EDIT_REQUESTED ,
     AT_ITEM_EDIT_CANCELED ,
     AT_ITEM_EDITED ,
-    AT_ITEM_DELETED
+    AT_ITEM_DELETED ,
+
+    // Laden von Daten
+    AT_DATA_LOAD_REQUESTED ,
+    AT_DATA_LOAD_SUCCESS ,
+    AT_DATA_LOAD_ERROR
 }
 
 export = AppActionTypes ;

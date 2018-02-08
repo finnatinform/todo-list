@@ -60,6 +60,29 @@ class ActionHandler {
         });        
     }
 
+    public onDataLoadSuccess( _Data : Array<string> ):void {
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_DATA_LOAD_SUCCESS ,
+            data : {
+                items : _Data
+            }
+        });
+    }
+
+    public onDataLoadFailed():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_DATA_LOAD_ERROR ,
+            data : {}
+        });   
+    }
+
+    public onDataLoadRequested():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_DATA_LOAD_REQUESTED ,
+            data : {}
+        });   
+    }    
+
 }
 
 var AppActionHandler: ActionHandler = new ActionHandler();
