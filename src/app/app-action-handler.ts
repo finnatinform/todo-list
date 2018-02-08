@@ -3,28 +3,44 @@ import AppActionTypes = require('./app-action-types');
 
 class ActionHandler {
 
-    public onAddItemRequested():void{
+    public onAddItemRequested( _Item : string ):void{
         AppDispatcher.dispatch({
             actionType : AppActionTypes.AT_ITEM_ADD_REQUESTED,
-            data : {}
+            data : {
+                item : _Item
+            }
         });
     }
 
     public onAddItemAborted():void{
         AppDispatcher.dispatch({
-            actionType : AppActionTypes.AT_ITEM_ADD_REQUESTED,
+            actionType : AppActionTypes.AT_ITEM_ADD_CANCELED,
             data : {}
         });
     }
 
-    public onItemAdded( _Item : string ):void{
+    public onItemAddSuccess():void{
         AppDispatcher.dispatch({
-            actionType : AppActionTypes.AT_ITEM_ADDED,
-            data : {
-                item : _Item.trim()
-            }
+            actionType : AppActionTypes.AT_ITEM_ADD_SUCCESS,
+            data : {}
         });
     }
+
+    public onItemAddStart():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_ITEM_ADD_START,
+            data : {}
+        });
+    }
+
+    public onItemAddError():void{
+        AppDispatcher.dispatch({
+            actionType : AppActionTypes.AT_ITEM_ADD_ERROR,
+            data : {}
+        });
+    }
+
+
     public onItemDeleteRequested( _Item : string ):void{
         AppDispatcher.dispatch({
             actionType : AppActionTypes.AT_DATA_DELETE_REQUESTED,

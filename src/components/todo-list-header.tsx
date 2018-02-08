@@ -15,7 +15,7 @@ export class TodoListHeader extends React.Component<ITodoListHeaderProps, ITodoL
     }
 
     private onAddItem():void{
-        AppActionHandler.onAddItemRequested();
+        AppActionHandler.onItemAddStart();
     }
 
     render() {

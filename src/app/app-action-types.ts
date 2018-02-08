@@ -1,7 +1,4 @@
 enum AppActionTypes {
-    AT_ITEM_ADD_REQUESTED ,
-    AT_ITEM_ADD_CANCELED ,
-    AT_ITEM_ADDED ,
     AT_ITEM_EDIT_REQUESTED ,
     AT_ITEM_EDIT_CANCELED ,
     AT_ITEM_EDITED ,
@@ -14,9 +11,14 @@ enum AppActionTypes {
     // Löschen von Daten
     AT_DATA_DELETE_REQUESTED ,
     AT_DATA_DELETE_SUCCESS ,
-    AT_DATA_DELETE_ERROR
+    AT_DATA_DELETE_ERROR ,
 
     // Hinzufügen von Daten
+    AT_ITEM_ADD_START ,
+    AT_ITEM_ADD_CANCELED ,
+    AT_ITEM_ADD_REQUESTED ,
+    AT_ITEM_ADD_SUCCESS ,
+    AT_ITEM_ADD_ERROR
 
     // Editieren von Daten
 

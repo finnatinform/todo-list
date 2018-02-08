@@ -50,7 +50,7 @@ Application.use(Cors());
 ```
 
 ### Löschen von Daten
-Auch beim löschen können wir gut von der Frage ausgehen, welche ActionTypen wir brauchen.
+Auch beim Löschen können wir gut von der Frage ausgehen, welche ActionTypen wir brauchen.
 Darauf basierend können wir nun die Applikation anpassen.
 
 Die Syntax um einen DELETE-Call mit jQuery abzusetzen ist ein wenig komplexer als ein GET-Call.
@@ -67,5 +67,10 @@ $.ajax({
     .fail( /* Handler */ );
 ```
 
+### Hinzufügen von Daten
+Wir gehen analog zu den anderen Schritten vor und starten mit der Implementierung der ActionTypen.
+Achtet dabei darauf, dass es schon ein AddRequest gibt!
+
+Für einen POST-Call verwenden wir ebenfalls die ajax-Routine, übergeben als type den Parameter 'POST'. 
 
 ### Editieren von Daten

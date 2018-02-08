@@ -22,7 +22,7 @@ class DialogStoreStatic extends Store<AppAction>{
     __onDispatch(_Action: AppAction) {
         var HError: boolean = false;
         switch (_Action.actionType) {
-            case AppActionTypes.AT_ITEM_ADD_REQUESTED:
+            case AppActionTypes.AT_ITEM_ADD_START:
                 this.showDialog();
                 break;
 
@@ -30,7 +30,7 @@ class DialogStoreStatic extends Store<AppAction>{
                 this.hideDialog();
                 break;
 
-            case AppActionTypes.AT_ITEM_ADDED:
+            case AppActionTypes.AT_ITEM_ADD_REQUESTED:
                 this.hideDialog();
                 break;
             

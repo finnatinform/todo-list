@@ -44,7 +44,7 @@ export class DialogOverlay extends React.Component<IDialogOverlayProps, IDialogO
     }
 
     private onItemSave():void{
-        AppActionHandler.onItemAdded((document.getElementById('id-dialog-input') as any).value);
+        AppActionHandler.onAddItemRequested((document.getElementById('id-dialog-input') as any).value);
     }
 
     private renderOverlay(): JSX.Element {
