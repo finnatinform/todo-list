@@ -8,4 +8,9 @@ Die package.json müssen wir natürlich mergen. Dazu kopieren wir einfach alle D
 Als letztes passen wir noch die webpack Konfiguration an, denn wir brauchen nun nicht nur zwei Entry-Points sondern auch zwei targets.
 Je nach Namenskonvention müssen wir natürlich auch noch den Skriptlink in der index.html anpassen.
 
-## 
+## Anpassen des Servers
+Nun passen wir als erstes den Server für unsere Bedarfe an.
+Folgende Funktionalitäten sollen funktionieren:
+- Einträge hinzufügen
+- Einträge löschen
+- Einträge auflisten
