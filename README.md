@@ -19,11 +19,37 @@ Folgende Funktionalitäten sollen funktionieren:
 Beim Anpassen des Clients kann man sich sehr gut an den notwendigen ActionTypen orientieren.
 Welche/Wieviele brauchen wir für eine Serverkommunikation?
 
-Als Vorbereitung installieren wir uns außerdem jQuery.
+Als Vorbereitung installieren wir uns außerdem jQuery für das Laden der Daten.
 ```
 npm install --save jquery @types/jquery
 ```
+
 ### Laden von Daten
+Den Server können wir nun wie folgt anfunken:
+```javascript
+import * as $ from "jquery";
+
+// ...
+
+$.getJSON( /* Url */ )
+    .done( /* Handler */ )
+    .fail ( /* Handler */ );
+```
+
+Um auf localhost zugreifen zu können, müssen wir zudem cors installieren und unser Application Objekt ergänzen.
+```
+npm install --save cors @types/cors
+```
+
+```javascript
+import Cors = require('cors');
+
+// ...
+
+Application.use(Cors());
+```
 
 ### Löschen von Daten
+
+
 ### Editieren von Daten
